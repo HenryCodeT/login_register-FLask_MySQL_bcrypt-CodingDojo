@@ -54,22 +54,22 @@ class User:
         is_valid = True
         print(registro)
         if not FIRST_LAST_NAME_REGEX.match(registro['firstname']):
-            flash('al menos 2 letras para el nombre','regiter') 
+            flash('al menos 2 letras para el nombre','register') 
             is_valid = False
         if not FIRST_LAST_NAME_REGEX.match(registro['lastname']):
-            flash('al menos 2 letras para el apellido','regiter') 
+            flash('al menos 2 letras para el apellido','register') 
             is_valid = False
         if not EMAIL_REGEX.match(registro['email']):
-            flash("el correo no esta en el formato adecaudo",'regiter')
+            flash("el correo no esta en el formato adecaudo",'register')
             is_valid=False
         if not registro['password1']==registro['password2']:
-            flash('las contraseñas no coinciden','regiter')
+            flash('las contraseñas no coinciden','register')
             is_valid=False
         if not PASSWORD_REGREX.match(registro['password1']):
-            flash("el password debe contener al menos 8 caracteres",'regiter')
+            flash("el password debe contener al menos 8 caracteres",'register')
             is_valid= False 
         if len(response_query_user)>=1:
-            flash("el correo ya existe",'regiter')
+            flash("el correo ya existe",'register')
             is_valid= False 
         return is_valid
     
