@@ -27,6 +27,16 @@ class User:
         return response_query_users
 
     @classmethod
+    def get_user_by_email(cls,data):
+        query = '''
+                SELECT * FROM users WHERE email = %(email)s
+                '''
+        response_user=connectToMySQL('login_register_db').query_db(query,data)
+        if len(response_user)<1:
+            return False
+        return cls(*response_user)
+    
+    @classmethod
     def get_user_by_id(cls,data):
         query = '''
                 SELECT * FROM users WHERE id = %(id)s

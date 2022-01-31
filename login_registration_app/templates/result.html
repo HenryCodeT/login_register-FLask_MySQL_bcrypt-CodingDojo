@@ -2,8 +2,8 @@
 {% block content %}
 
 <div class="mx-auto bg-dark p-3" style="width: 500px;">
-    <h2 class="text-light">Bienvenido {{session['name']}}</h2>
-    <a class="btn btn-success" href="/">HOME </a>
+    <h2 class="text-light">Bienvenido {{user.first_name}}</h2>
+    <a class="btn btn-success" href="/logout">HOME </a>
 </div>
 
 {% endblock %}

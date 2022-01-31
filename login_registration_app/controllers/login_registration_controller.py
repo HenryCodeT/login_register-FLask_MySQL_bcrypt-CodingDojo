@@ -20,23 +20,35 @@ def registration():
         'password':password_encriptado
     }
     response_query = User.create_user(data)
-    print(response_query)
-    session['name'] = request.form['firstname']
+    session['id'] = response_query
     return redirect("/result")
 
 @app.route("/login",methods=['POST'])
 def login():
-    response_query_user=User.validate_login(request.form)
+    response_query_user=User.get_user_by_email(request.form)
     
-    if not response_query_user['is_valid']:
-        return redirect("/")
+    if not response_query_user:
+        flash("El correo no existe","login")
+        return redirect('/')
     
-    if not bcrypt.check_password_hash( response_query_user['user']['password'], request.form['password']):
+    if not bcrypt.check_password_hash( response_query_user.password, request.form['password']):
         flash("el password no es correcto","login")
         return redirect("/")
-    session['name'] = response_query_user['user']['first_name']
+    session['id'] = response_query_user.id
     return redirect("/result")
 
 @app.route("/result",methods=['GET'])
 def result_user():
-    return render_template("result.html")
+    if 'id' not in session:
+        return redirect('/logout')
+    data ={
+        'id': session['id']
+    }
+    response_query=User.get_user_by_id(data)
+    print(response_query)
+    return render_template("result.html",user=response_query)
+
+@app.route("/logout",methods=['GET'])
+def logout():
+    session.clear()
+    return redirect("/")
