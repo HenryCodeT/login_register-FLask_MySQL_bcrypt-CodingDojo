@@ -7,7 +7,7 @@
 ### Flash messages 
 * ``` user_model.py ``` creating a ```flash``` message with category
  ```python
- flash('al menos 2 letras para el nombre','regiter')
+ flash('al menos 2 letras para el nombre','register')
  ```
  * ```inde.html``` show messages
  ```html 
